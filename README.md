@@ -6,3 +6,4 @@ Right in [here](https://github.com/jgamblin/Mirai-Source-Code/blob/master/mirai/
 I wasn't the founder of the vulnerability, you can find the original vulnerability explained [here](https://www.ankitanubhav.info/post/crash).
 # How do I use it?
 You simply enter the C2 IP and the C2 port, and it'll run the exploit.
+credits to other Mirai C2/CnC Crashers on GitHub, I had to reference a lot.
