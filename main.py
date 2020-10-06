@@ -37,7 +37,7 @@ for crasher in c2ip:
 	crasher.replace("https://", "")
 	crasher.replace("http://", "")
 	crasher.replace("/", "")
-	crasher2 = Thread(target=crash, args=(c2ip, c2port))
+	crasher2 = Thread(target=crash, args=(c2ip,))
 	crasher2.start()
 	if crash == 0:
 		print(Fore.GREEN+"C2 has been successfully crashed!")
